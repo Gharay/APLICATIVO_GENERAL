@@ -1,0 +1,289 @@
+<PAMDataset>
+  <Metadata domain="xml:ESRI" format="xml">
+    <GeodataXform xsi:type="typens:CompositeXform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:typens="http://www.esri.com/schemas/ArcGIS/3.2.0">
+      <XF_0 xsi:type="typens:PolynomialXform">
+        <PolynomialOrder>1</PolynomialOrder>
+        <SpatialReference xsi:type="typens:UnknownCoordinateSystem">
+          <XOrigin>-19.725000000000001</XOrigin>
+          <YOrigin>-27.77</YOrigin>
+          <XYScale>129739996467281.09</XYScale>
+          <ZOrigin>-100000</ZOrigin>
+          <ZScale>10000</ZScale>
+          <MOrigin>-100000</MOrigin>
+          <MScale>10000</MScale>
+          <XYTolerance>0.001</XYTolerance>
+          <ZTolerance>0.001</ZTolerance>
+          <MTolerance>0.001</MTolerance>
+          <HighPrecision>true</HighPrecision>
+        </SpatialReference>
+        <CoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>4704550.337574264</Double>
+          <Double>1</Double>
+          <Double>0</Double>
+        </CoeffX>
+        <CoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>1698297.3138016562</Double>
+          <Double>0</Double>
+          <Double>1</Double>
+        </CoeffY>
+        <InverseCoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>-4704550.337574264</Double>
+          <Double>1</Double>
+          <Double>0</Double>
+        </InverseCoeffX>
+        <InverseCoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>-1698297.3138016562</Double>
+          <Double>0</Double>
+          <Double>1</Double>
+        </InverseCoeffY>
+        <Name />
+      </XF_0>
+      <XF_1 xsi:type="typens:PolynomialXform">
+        <PolynomialOrder>1</PolynomialOrder>
+        <SpatialReference xsi:type="typens:UnknownCoordinateSystem">
+          <XOrigin>-19.725000000000001</XOrigin>
+          <YOrigin>-27.77</YOrigin>
+          <XYScale>129739996467281.09</XYScale>
+          <ZOrigin>-100000</ZOrigin>
+          <ZScale>10000</ZScale>
+          <MOrigin>-100000</MOrigin>
+          <MScale>10000</MScale>
+          <XYTolerance>0.001</XYTolerance>
+          <ZTolerance>0.001</ZTolerance>
+          <MTolerance>0.001</MTolerance>
+          <HighPrecision>true</HighPrecision>
+        </SpatialReference>
+        <CoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>0</Double>
+          <Double>60.562600578754015</Double>
+          <Double>0</Double>
+        </CoeffX>
+        <CoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>0</Double>
+          <Double>0</Double>
+          <Double>60.56260057875398</Double>
+        </CoeffY>
+        <InverseCoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>0</Double>
+          <Double>0.016511840483131604</Double>
+          <Double>0</Double>
+        </InverseCoeffX>
+        <InverseCoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>0</Double>
+          <Double>0</Double>
+          <Double>0.016511840483131614</Double>
+        </InverseCoeffY>
+        <Name />
+      </XF_1>
+      <XF_2 xsi:type="typens:PolynomialXform">
+        <PolynomialOrder>1</PolynomialOrder>
+        <SpatialReference xsi:type="typens:UnknownCoordinateSystem">
+          <XOrigin>-19.725000000000001</XOrigin>
+          <YOrigin>-27.77</YOrigin>
+          <XYScale>129739996467281.09</XYScale>
+          <ZOrigin>-100000</ZOrigin>
+          <ZScale>10000</ZScale>
+          <MOrigin>-100000</MOrigin>
+          <MScale>10000</MScale>
+          <XYTolerance>0.001</XYTolerance>
+          <ZTolerance>0.001</ZTolerance>
+          <MTolerance>0.001</MTolerance>
+          <HighPrecision>true</HighPrecision>
+        </SpatialReference>
+        <CoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>-280215252.65957826</Double>
+          <Double>1</Double>
+          <Double>0</Double>
+        </CoeffX>
+        <CoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>-101155004.56593886</Double>
+          <Double>0</Double>
+          <Double>1</Double>
+        </CoeffY>
+        <InverseCoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>280215252.65957826</Double>
+          <Double>1</Double>
+          <Double>0</Double>
+        </InverseCoeffX>
+        <InverseCoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>101155004.56593886</Double>
+          <Double>0</Double>
+          <Double>1</Double>
+        </InverseCoeffY>
+        <Name />
+      </XF_2>
+      <XF_3 xsi:type="typens:PolynomialXform">
+        <PolynomialOrder>1</PolynomialOrder>
+        <SpatialReference xsi:type="typens:UnknownCoordinateSystem">
+          <XOrigin>-19.725000000000001</XOrigin>
+          <YOrigin>-27.77</YOrigin>
+          <XYScale>129739996467281.09</XYScale>
+          <ZOrigin>-100000</ZOrigin>
+          <ZScale>10000</ZScale>
+          <MOrigin>-100000</MOrigin>
+          <MScale>10000</MScale>
+          <XYTolerance>0.001</XYTolerance>
+          <ZTolerance>0.001</ZTolerance>
+          <MTolerance>0.001</MTolerance>
+          <HighPrecision>true</HighPrecision>
+        </SpatialReference>
+        <CoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>-293.71807412616954</Double>
+          <Double>1</Double>
+          <Double>0</Double>
+        </CoeffX>
+        <CoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>-413.51335452521084</Double>
+          <Double>0</Double>
+          <Double>1</Double>
+        </CoeffY>
+        <InverseCoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>293.71807412616954</Double>
+          <Double>1</Double>
+          <Double>0</Double>
+        </InverseCoeffX>
+        <InverseCoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>413.51335452521084</Double>
+          <Double>0</Double>
+          <Double>1</Double>
+        </InverseCoeffY>
+        <Name />
+      </XF_3>
+      <XF_4 xsi:type="typens:PolynomialXform">
+        <PolynomialOrder>1</PolynomialOrder>
+        <SpatialReference xsi:type="typens:UnknownCoordinateSystem">
+          <XOrigin>-19.725000000000001</XOrigin>
+          <YOrigin>-27.77</YOrigin>
+          <XYScale>129739996467281.09</XYScale>
+          <ZOrigin>-100000</ZOrigin>
+          <ZScale>10000</ZScale>
+          <MOrigin>-100000</MOrigin>
+          <MScale>10000</MScale>
+          <XYTolerance>0.001</XYTolerance>
+          <ZTolerance>0.001</ZTolerance>
+          <MTolerance>0.001</MTolerance>
+          <HighPrecision>true</HighPrecision>
+        </SpatialReference>
+        <CoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>0</Double>
+          <Double>2.2367418728386212</Double>
+          <Double>0</Double>
+        </CoeffX>
+        <CoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>0</Double>
+          <Double>0</Double>
+          <Double>2.2367418728386212</Double>
+        </CoeffY>
+        <InverseCoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>0</Double>
+          <Double>0.44707885703901651</Double>
+          <Double>0</Double>
+        </InverseCoeffX>
+        <InverseCoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>0</Double>
+          <Double>0</Double>
+          <Double>0.44707885703901651</Double>
+        </InverseCoeffY>
+        <Name />
+      </XF_4>
+      <XF_5 xsi:type="typens:PolynomialXform">
+        <PolynomialOrder>1</PolynomialOrder>
+        <SpatialReference xsi:type="typens:UnknownCoordinateSystem">
+          <XOrigin>-19.725000000000001</XOrigin>
+          <YOrigin>-27.77</YOrigin>
+          <XYScale>129739996467281.09</XYScale>
+          <ZOrigin>-100000</ZOrigin>
+          <ZScale>10000</ZScale>
+          <MOrigin>-100000</MOrigin>
+          <MScale>10000</MScale>
+          <XYTolerance>0.001</XYTolerance>
+          <ZTolerance>0.001</ZTolerance>
+          <MTolerance>0.001</MTolerance>
+          <HighPrecision>true</HighPrecision>
+        </SpatialReference>
+        <CoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>-5817951.1419140566</Double>
+          <Double>1</Double>
+          <Double>0</Double>
+        </CoeffX>
+        <CoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>-2099843.9912273465</Double>
+          <Double>0</Double>
+          <Double>1</Double>
+        </CoeffY>
+        <InverseCoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>5817951.1419140566</Double>
+          <Double>1</Double>
+          <Double>0</Double>
+        </InverseCoeffX>
+        <InverseCoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>2099843.9912273465</Double>
+          <Double>0</Double>
+          <Double>1</Double>
+        </InverseCoeffY>
+        <Name />
+      </XF_5>
+      <XF_6 xsi:type="typens:PolynomialXform">
+        <PolynomialOrder>1</PolynomialOrder>
+        <SpatialReference xsi:type="typens:UnknownCoordinateSystem">
+          <XOrigin>-19.725000000000001</XOrigin>
+          <YOrigin>-27.77</YOrigin>
+          <XYScale>129739996467281.09</XYScale>
+          <ZOrigin>-100000</ZOrigin>
+          <ZScale>10000</ZScale>
+          <MOrigin>-100000</MOrigin>
+          <MScale>10000</MScale>
+          <XYTolerance>0.001</XYTolerance>
+          <ZTolerance>0.001</ZTolerance>
+          <MTolerance>0.001</MTolerance>
+          <HighPrecision>true</HighPrecision>
+        </SpatialReference>
+        <CoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>-369.35212443303305</Double>
+          <Double>1</Double>
+          <Double>0</Double>
+        </CoeffX>
+        <CoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>-519.99536095606265</Double>
+          <Double>0</Double>
+          <Double>1</Double>
+        </CoeffY>
+        <InverseCoeffX xsi:type="typens:ArrayOfDouble">
+          <Double>369.35212443303305</Double>
+          <Double>1</Double>
+          <Double>0</Double>
+        </InverseCoeffX>
+        <InverseCoeffY xsi:type="typens:ArrayOfDouble">
+          <Double>519.99536095606265</Double>
+          <Double>0</Double>
+          <Double>1</Double>
+        </InverseCoeffY>
+        <Name />
+      </XF_6>
+      <RequireDEM>false</RequireDEM>
+    </GeodataXform>
+  </Metadata>
+  <PAMRasterBand band="1">
+    <Histograms>
+      <HistItem>
+        <HistMin>-0.5</HistMin>
+        <HistMax>1.5</HistMax>
+        <BucketCount>2</BucketCount>
+        <IncludeOutOfRange>1</IncludeOutOfRange>
+        <Approximate>0</Approximate>
+        <HistCounts>611174|21299356</HistCounts>
+      </HistItem>
+    </Histograms>
+    <Metadata>
+      <MDI key="STATISTICS_COUNT">21910530.000000</MDI>
+      <MDI key="STATISTICS_COVARIANCES">0.02711599823484753</MDI>
+      <MDI key="STATISTICS_MAXIMUM">1</MDI>
+      <MDI key="STATISTICS_MEAN">0.97210592349891</MDI>
+      <MDI key="STATISTICS_MEDIAN">1.000000</MDI>
+      <MDI key="STATISTICS_MINIMUM">0</MDI>
+      <MDI key="STATISTICS_SKIPFACTORX">1</MDI>
+      <MDI key="STATISTICS_SKIPFACTORY">1</MDI>
+      <MDI key="STATISTICS_STDDEV">0.16466936034019</MDI>
+    </Metadata>
+  </PAMRasterBand>
+</PAMDataset>

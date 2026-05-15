@@ -1,0 +1,494 @@
+{% extends "base.html" %}
+{% block title %}Editar Predio — SIC{% endblock %}
+
+{% block content %}
+<input type="hidden" id="idpredioActual" value="{{ idpredio }}">
+
+<!-- ENCABEZADO + TABS (wrapper sticky) -->
+<div class="sticky-header">
+
+    <div class="section-header">
+        <div>
+            <a href="/" class="btn-secondary" style="text-decoration:none; margin-right:10px;">← Volver</a>
+            <strong style="font-size:18px;">Predio: <span id="predioID" style="color:#1f2937;">---</span></strong>
+        </div>
+        <div class="btn-group">
+            <button id="btnGuardar"       class="btn-primary">💾 Guardar</button>
+            <button id="btnExportarWord"  class="btn-secondary">📄 Word</button>
+            <button id="btnExportarExcel" class="btn-secondary">📊 Excel</button>
+        </div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="mostrarApartado('apA', this)">A. Principal</button>
+        <button class="tab-btn"        onclick="mostrarApartado('apB', this)">B. Localización</button>
+        <button class="tab-btn"        onclick="mostrarApartado('apC', this)">C. Catastral</button>
+        <button class="tab-btn"        onclick="mostrarApartado('apD', this)">D. Jurídica</button>
+        <button class="tab-btn"        onclick="mostrarApartado('apE', this)">E. Colindantes</button>
+    </div>
+
+</div>
+
+<!-- MENSAJES DE ESTADO -->
+<div id="contenedorMensajes">
+    <div id="mensajeEstado" style="display:none; padding:10px; border-radius:4px;
+         background:#f3f4f6; color:#1f2937; border:1px solid #e5e7eb;"></div>
+    <div id="mensajeError"  style="display:none; padding:10px; border-radius:4px;
+         background:#e5e7eb; color:#4b5563; border:1px solid #d1d5db;"></div>
+</div>
+
+<!-- ======================================================== -->
+<!-- APARTADO A: INFORMACIÓN PRINCIPAL                        -->
+<!-- ======================================================== -->
+<div id="apA" class="apartado">
+    <h3 style="margin-bottom:20px; color:#4b5563;">A. Información Principal</h3>
+
+    <div class="form-group">
+        <label>ID <span style="color:red;">*</span></label>
+        <input type="text" id="predio_id" name="predio_id" readonly
+               style="background:#e9ecef; cursor:not-allowed; font-weight:600;"
+               placeholder="Asignado al crear el predio">
+    </div>
+
+    <div class="form-group">
+        <label>FMI (Folio de Matrícula Inmobiliaria) <span style="color:red;">*</span></label>
+        <input type="text" id="predio_fmi" name="predio_fmi" readonly
+               style="background:#e9ecef; cursor:not-allowed; font-weight:600;"
+               placeholder="Asignado al crear el predio">
+    </div>
+
+    <div class="form-group">
+        <label>Propietario Actual VUR</label>
+        <input type="text" id="predio_propietario_vur" name="predio_propietario_vur"
+               placeholder="Nombre del propietario según VUR">
+    </div>
+
+    <div class="form-group">
+        <label>Número de Documento del Propietario Actual VUR</label>
+        <input type="text" id="predio_num_doc_propietario" name="predio_num_doc_propietario"
+            placeholder="Ej: 12345678">
+    </div>
+
+    <div class="form-group">
+        <label>Nombre Predio VUR</label>
+        <input type="text" id="predio_nombre_vur" name="predio_nombre_vur"
+               placeholder="Nombre del predio según VUR">
+    </div>
+
+    <div class="form-group">
+        <label>Área VUR</label>
+        <input type="number" id="predio_area_vur" name="predio_area_vur"
+               step="0.0001" min="0" placeholder="0.0000">
+    </div>
+
+
+    <!-- ✅ NUEVO CAMPO: Tipo de Gestión -->
+    <div class="form-group">
+        <label>Tipo de Gestión</label>
+        <select id="predio_tipo_gestion" name="predio_tipo_gestion">
+            <option value="">-- Seleccione --</option>
+            <option value="Asignación">Asignación</option>
+            <option value="Preliminar">Preliminar</option>
+            <option value="Entregado">Entregado</option>
+            <option value="Finalizado">Finalizado</option>
+            <option value="Desistido">Desistido</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>¿El predio nace de un Matriz?</label>
+        <select id="predio_es_derivado" name="predio_es_derivado" onchange="toggleMatriz()">
+            <option value="0">NO</option>
+            <option value="1">SÍ</option>
+        </select>
+    </div>
+
+    <div class="form-group" id="grupoMatriz" style="display:none;">
+        <label>Predio Matriz</label>
+        <input type="text" id="predio_id_matriz" name="predio_id_matriz"
+               placeholder="ID o FMI del predio matriz">
+    </div>
+
+    <div class="form-group">
+        <label>¿El predio tiene derivadas?</label>
+        <select id="predio_tiene_derivadas" name="predio_tiene_derivadas" onchange="toggleDerivadas()">
+            <option value="0">NO</option>
+            <option value="1">SÍ</option>
+        </select>
+    </div>
+
+    <div class="form-group" id="grupoDerivadas" style="display:none;">
+        <label>Predios Derivados (IDs separados por coma)</label>
+        <input type="text" id="predio_derivadas_ids" name="predio_derivadas_ids"
+               placeholder="Ej: ANT-002, ANT-003">
+    </div>
+
+    <div class="form-group">
+        <label>¿Tuvo proceso de englobe/desenglobe o venta parcial? ¿Área remanente?</label>
+        <select id="predio_englobe" name="predio_englobe">
+            <option value="0">NO</option>
+            <option value="1">SÍ</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Área Final Gestión Catastral (ha)</label>
+        <input type="number" id="predio_area_final_gc" name="predio_area_final_gc"
+               step="0.0001" min="0" placeholder="0.0000">
+    </div>
+
+</div>
+
+<!-- ======================================================== -->
+<!-- APARTADO B: LOCALIZACIÓN                                 -->
+<!-- ======================================================== -->
+<div id="apB" class="apartado" style="display:none;">
+    <h3 style="margin-bottom:20px; color:#4b5563;">B. Localización</h3>
+
+    <div class="form-group">
+        <label>Departamento (Ubicación Espacial)</label>
+        <input type="text" id="loc_dpto_espacial" name="loc_dpto_espacial"
+               placeholder="Departamento según ubicación real">
+    </div>
+    <div class="form-group">
+        <label>Municipio (Ubicación Espacial)</label>
+        <input type="text" id="loc_municipio_espacial" name="loc_municipio_espacial"
+               placeholder="Municipio según ubicación real">
+    </div>
+    <div class="form-group">
+        <label>Vereda o Corregimiento (Espacial)</label>
+        <input type="text" id="loc_vereda_espacial" name="loc_vereda_espacial"
+               placeholder="Vereda o corregimiento">
+    </div>
+
+    <!-- Vereda VUR: SIEMPRE visible -->
+    <div class="form-group">
+        <label>Vereda o Corregimiento (VUR)</label>
+        <input type="text" id="loc_vereda_vur" name="loc_vereda_vur"
+               placeholder="Vereda según VUR">
+    </div>
+
+    <div class="form-group">
+        <label>¿Tiene municipio diferente en VUR?</label>
+        <select id="loc_municipio_diferente" name="loc_municipio_diferente"
+                onchange="toggleMunicipioVUR()">
+            <option value="0">NO</option>
+            <option value="1">SÍ</option>
+        </select>
+    </div>
+
+    <!-- Solo visible si selecciona SÍ -->
+    <div id="grupoMunicipioVUR" style="display:none;">
+        <div class="form-group">
+            <label>Municipio en VUR</label>
+            <input type="text" id="loc_municipio_vur" name="loc_municipio_vur"
+                   placeholder="Municipio según VUR">
+        </div>
+        <div class="form-group">
+            <label>Departamento en VUR</label>
+            <input type="text" id="loc_dpto_vur" name="loc_dpto_vur"
+                   placeholder="Departamento según VUR">
+        </div>
+    </div>
+</div>
+
+
+<!-- ======================================================== -->
+<!-- APARTADO C: INFORMACIÓN CATASTRAL                       -->
+<!-- ======================================================== -->
+<div id="apC" class="apartado" style="display:none;">
+    <h3 style="margin-bottom:20px; color:#4b5563;">C. Información Catastral</h3>
+
+    <div class="form-group">
+        <label>Número Predial</label>
+        <input type="text" id="cat_numero_predial" name="cat_numero_predial"
+               placeholder="Número predial catastral">
+    </div>
+    <div class="form-group">
+        <label>FMI en R1/R2</label>
+        <input type="text" id="cat_fmi_r1_r2" name="cat_fmi_r1_r2"
+               placeholder="FMI según certificado catastral R1/R2">
+    </div>
+    <div class="form-group">
+        <label>Nombre del Predio en R1/R2</label>
+        <input type="text" id="cat_nombre_r1_r2" name="cat_nombre_r1_r2"
+               placeholder="Nombre según R1/R2">
+    </div>
+    <div class="form-group">
+        <label>Propietario</label>
+        <input type="text" id="cat_propietario" name="cat_propietario"
+               placeholder="Nombre del propietario catastral">
+    </div>
+    <div class="form-group">
+        <label>Cédula Propietario</label>
+        <input type="text" id="cat_cedula" name="cat_cedula"
+               placeholder="Número de cédula">
+    </div>
+    <div class="form-group">
+        <label>Área de Terreno (ha) — Polígono Catastral</label>
+        <input type="number" id="cat_area_terreno" name="cat_area_terreno"
+               step="0.0001" min="0" placeholder="0.0000">
+    </div>
+    <div class="form-group">
+        <label>Área de Terreno (ha) — R1/R2</label>
+        <input type="number" id="cat_area_terreno_r1r2" name="cat_area_terreno_r1r2"
+               step="0.0001" min="0" placeholder="0.0000">
+    </div>
+    <div class="form-group">
+        <label>Destino Económico</label>
+        <input type="text" id="cat_destino" name="cat_destino"
+               placeholder="Ej: Agropecuario, Habitacional...">
+    </div>
+    <div class="form-group">
+        <label>Número Predial (Anterior) o Referencia Catastral</label>
+        <input type="text" id="cat_referencia" name="cat_referencia"
+               placeholder="Referencia catastral completa">
+    </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- APARTADO D: INFORMACIÓN JURÍDICA                        -->
+<!-- ======================================================== -->
+<div id="apD" class="apartado" style="display:none;">
+    <h3 style="margin-bottom:20px; color:#4b5563;">D. Información Jurídica</h3>
+
+    <div class="form-group">
+        <label>Documento Jurídico que dio Origen al Inmueble</label>
+        <input type="text" id="jur_documento_origen" name="jur_documento_origen"
+               placeholder="Ej: Escritura 123 de 1985">
+    </div>
+    <div class="form-group">
+        <label>Área Jurídica (ha)</label>
+        <input type="number" id="jur_area_ha" name="jur_area_ha"
+               step="0.0001" min="0" placeholder="0.0000">
+    </div>
+    <div class="form-group">
+        <label>Nombre Predio Origen</label>
+        <input type="text" id="jur_nombre_origen" name="jur_nombre_origen"
+               placeholder="Nombre en el documento origen">
+    </div>
+    <div class="form-group">
+        <label>Nombre del Predio Actual</label>
+        <input type="text" id="jur_nombre_predio_actual" name="jur_nombre_predio_actual"
+               placeholder="Nombre actual del predio">
+    </div>
+    <div class="form-group">
+        <label>Adjudicatario Inicial</label>
+        <input type="text" id="jur_adjudicatario" name="jur_adjudicatario"
+               placeholder="Nombre del adjudicatario inicial">
+    <div class="form-group">
+        <label>Referencia Catastral (VUR)</label>
+        <input type="text" id="jur_referencia_catastral_vur" name="jur_referencia_catastral_vur"
+            placeholder="Referencia catastral según VUR">
+    </div>
+    <div class="form-group">
+        <label>Primera Anotación</label>
+        <input type="text" id="jur_documento_primera_anotacion" name="jur_documento_primera_anotacion"
+            placeholder="Descripción de la primera anotación registral">
+    </div>
+    </div>
+    <div class="form-group">
+        <label>Última Anotación del Propietario Actual</label>
+        <input type="text" id="jur_doc_ultima_anotacion" name="jur_doc_ultima_anotacion"
+               placeholder="Descripción de la última anotación registral que refleja al propietario actual">
+    </div>
+
+    <div class="form-group">
+        <label>Fecha de Apertura del Folio</label>
+        <input type="date" id="jur_fecha_apertura_folio" name="jur_fecha_apertura_folio">
+    </div>
+    <div class="form-group">
+        <label>Tipo de Instrumento</label>
+        <input type="text" id="jur_tipo_instrumento" name="jur_tipo_instrumento"
+               placeholder="Ej: Escritura pública, Resolución...">
+    </div>
+    <div class="form-group">
+        <label>Fecha de Instrumento</label>
+        <input type="date" id="jur_fecha_instrumento" name="jur_fecha_instrumento">
+    </div>
+    <div class="form-group">
+        <label>Tipo de Predio</label>
+        <input type="text" id="jur_tipo_predio" name="jur_tipo_predio"
+               placeholder="Ej: Rural, Urbano, Expansión urbana...">
+    </div>
+    <div class="form-group">
+        <label>Estado del Folio</label>
+        <input type="text" id="jur_estado_folio" name="jur_estado_folio"
+               placeholder="Ej: Activo, Cerrado, Segregado...">
+    </div>
+    <div class="form-group">
+        <label>Plano</label>
+        <select id="jur_plano" name="jur_plano">
+            <option value="">-- Seleccione --</option>
+            <option value="EN ESPERA">EN ESPERA</option>
+            <option value="SIN PLANO">SIN PLANO (NO ENCONTRADO)</option>
+            <option value="PLANO">PLANO</option>
+            <option value="CARTERA">CARTERA (AZIMUTES, DISTANCIAS, ETC)</option>
+            <option value="DESCRIPCION EN RES. O ESC.">DESCRIPCIÓN EN RES. O ESC.</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Complementaciones</label>
+        <textarea id="jur_complementaciones" name="jur_complementaciones"
+                  rows="5" maxlength="65535"
+                  placeholder="Describa las complementaciones del folio..."></textarea>
+    </div>
+    <div class="form-group">
+        <label>Cabida y Linderos</label>
+        <textarea id="jur_cabida_linderos" name="jur_cabida_linderos"
+                  rows="6" maxlength="65535"
+                  placeholder="Describa la cabida y linderos del predio..."></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Salvedades</label>
+        <textarea id="jur_salvedades" name="jur_salvedades"
+                rows="4" maxlength="65535"
+                placeholder="Salvedades del folio..."></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Vida Jurídica</label>
+        <textarea id="jur_vida_juridica" name="jur_vida_juridica"
+                rows="4" maxlength="65535"
+                placeholder="Descripción de la vida jurídica del predio..."></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>CAS</label>
+        <textarea id="jur_cas" name="jur_cas"
+                rows="4" maxlength="65535"
+                placeholder="CAS Solicitados"></textarea>
+    </div>
+
+    <!-- Documentos adjuntos — igual que antes -->
+    <h4 style="margin:20px 0 10px; color:#6b7280;">Documentos Adjuntos del Predio</h4>
+    <div class="form-group">
+        <label>VUR General (PDF)</label>
+        <input type="file" id="adj_vur_general" accept=".pdf"
+               onchange="subirAdjunto(this, 'VUR_GENERAL')">
+    </div>
+    <div class="form-group">
+        <label>VUR Anotaciones (PDF)</label>
+        <input type="file" id="adj_vur_anotaciones" accept=".pdf"
+               onchange="subirAdjunto(this, 'VUR_ANOTACIONES')">
+    </div>
+    <div class="form-group">
+        <label>Copia Simple (PDF) <span style="color:red;">*</span></label>
+        <input type="file" id="adj_copia_simple" accept=".pdf"
+               onchange="subirAdjunto(this, 'COPIA_SIMPLE')">
+    </div>
+    <div class="form-group">
+        <label>Copia Simple del Matriz o Derivados (PDF)<span style="color:red;">*</span></label>
+        <input type="file" id="adj_copia_simple" accept=".pdf"
+               onchange="subirAdjunto(this, 'COPIA_SIMPLE_M_D')">
+    </div>
+    <div class="form-group">
+        <label>Certificado Catastral (PDF) <span style="color:red;">*</span></label>
+        <input type="file" id="adj_certificado_catastral" accept=".pdf"
+               onchange="subirAdjunto(this, 'CERTIFICADO_CATASTRAL')">
+    </div>
+    <div class="form-group">
+        <label>Plano (PDF, TIFF, JPG)</label>
+        <input type="file" id="adj_plano" accept=".pdf,.tiff,.tif,.jpg,.jpeg"
+               onchange="subirAdjunto(this, 'PLANO')">
+    </div>
+    <div class="form-group">
+        <label>Documento Origen (PDF)</label>
+        <input type="file" id="adj_doc_origen" accept=".pdf"
+               onchange="subirAdjunto(this, 'DOCUMENTO_ORIGEN')">
+    </div>
+    <div class="form-group">
+        <label>Escrituras (PDF)</label>
+        <input type="file" id="adj_escrituras" accept=".pdf"
+               onchange="subirAdjunto(this, 'ESCRITURAS')">
+    </div>
+    <div class="form-group">
+        <label>Documentos del Matriz o Derivadas(PDF)</label>
+        <input type="file" id="adj_doc_matriz_derivadas" accept=".pdf"
+               onchange="subirAdjunto(this, 'DOCUMENTO_MATRIZ_DERIVADAS')">
+    </div>
+    <div class="form-group">
+        <label>Otros Documentos (Actas Secuestro, Expedientes, etc)</label>
+        <input type="file" id="adj_otros" accept=".pdf,.doc,.docx" multiple
+               onchange="subirAdjunto(this, 'OTROS')">
+    </div>
+    <div id="listaDocumentos" style="margin-top:15px;">
+        <p style="color:#6b7280;">No hay documentos adjuntos.</p>
+    </div>
+</div>
+
+<!-- ======================================================== -->
+<!-- APARTADO E: COLINDANTES                                 -->
+<!-- ======================================================== -->
+<div id="apE" class="apartado" style="display:none;">
+    <h3 style="margin-bottom:20px; color:#4b5563;">E. Colindantes</h3>
+    <div id="tablaResumenColindantes" style="margin-bottom:20px;"></div>
+    <div class="form-group" style="display:flex; align-items:center; gap:10px;">
+        <label style="margin:0; white-space:nowrap;">Número de Colindantes:</label>
+        <input type="number" id="numColindantes" min="0" max="20" value="0"
+               style="width:80px;" onchange="generarColindantes()">
+        <button type="button" class="btn-secondary" onclick="generarColindantes()">Generar</button>
+    </div>
+
+    <div id="contenedorColindantes"></div>
+</div>
+
+<!-- BOTÓN INFERIOR -->
+<div style="text-align:center; margin-top:30px; padding:20px;">
+    <button class="btn-primary" style="padding:14px 40px; font-size:16px;"
+            onclick="document.getElementById('btnGuardar').click()">
+        💾 Guardar Todos los Datos
+    </button>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/ajax_handlers.js') }}"></script>
+<script>
+// generarColindantes ya está en ajax_handlers.js
+// subirAdjunto ya está en ajax_handlers.js
+
+function mostrarApartado(idApartado, btnActivo) {
+    document.querySelectorAll('.apartado').forEach(a => {
+        if (!a.closest('#contenedorColindantes')) {
+            a.style.display = 'none';
+        }
+    });
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(idApartado).style.display = 'block';
+    if (btnActivo) btnActivo.classList.add('active');
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const btnVolverArriba = document.getElementById('btnVolverArriba');
+
+    if (btnVolverArriba) {
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 350) {
+                btnVolverArriba.classList.add('show');
+            } else {
+                btnVolverArriba.classList.remove('show');
+            }
+        });
+
+        btnVolverArriba.addEventListener('click', function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+});
+
+function irAColindante(indice) {
+    const destino = document.getElementById(`colindante-anchor-${indice}`);
+    if (destino) {
+        destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+</script>
+
+<button type="button" id="btnVolverArriba" class="scroll-top-btn" title="Volver arriba">
+    ↑ Arriba
+</button>
+
+{% endblock %}
+

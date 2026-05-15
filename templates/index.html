@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Gestor de Predios DAT - ANT{% endblock %}
+
+{% block content %}
+<div class="section-header">
+    <h2>Gestor de Predios</h2>
+    <div style="display: flex; gap: 10px; align-items: center;">
+        <!-- Búsqueda global -->
+        <input 
+            type="text" 
+            id="searchPredios" 
+            placeholder="Buscar por ID, FMI, Propietario..." 
+            style="padding: 10px 15px; border: 1px solid #e5e7eb; border-radius: 4px; width: 300px; font-size: 14px;"
+        >
+        <button id="btnNuevoPredio" class="btn-primary">+ Crear Predio</button>
+    </div>
+</div>
+
+<!-- Tabs de clasificación por tipo de gestión -->
+<div class="tabs-gestion">
+    <button class="tab-gestion active" data-tipo="TODOS" onclick="filtrarPorTipo('TODOS', this)">
+        <span class="tab-label">Todos</span>
+        <span class="tab-badge" id="badge-TODOS">0</span>
+    </button>
+    <button class="tab-gestion" data-tipo="Asignación" onclick="filtrarPorTipo('Asignación', this)">
+        <span class="tab-label">Asignación</span>
+        <span class="tab-badge badge-asignacion" id="badge-Asignación">0</span>
+    </button>
+    <button class="tab-gestion" data-tipo="Preliminar" onclick="filtrarPorTipo('Preliminar', this)">
+        <span class="tab-label">Preliminar</span>
+        <span class="tab-badge badge-preliminar" id="badge-Preliminar">0</span>
+    </button>
+    <button class="tab-gestion" data-tipo="Entregado" onclick="filtrarPorTipo('Entregado', this)">
+        <span class="tab-label">Entregado</span>
+        <span class="tab-badge badge-entregado" id="badge-Entregado">0</span>
+    </button>
+    <button class="tab-gestion" data-tipo="Finalizado" onclick="filtrarPorTipo('Finalizado', this)">
+        <span class="tab-label">Finalizado</span>
+        <span class="tab-badge badge-finalizado" id="badge-Finalizado">0</span>
+    </button>
+    <button class="tab-gestion" data-tipo="Desistido" onclick="filtrarPorTipo('Desistido', this)">
+        <span class="tab-label">Desistido</span>
+        <span class="tab-badge badge-desistido" id="badge-Desistido">0</span>
+    </button>
+    <button class="tab-gestion" data-tipo="SinAsignar" onclick="filtrarPorTipo('SinAsignar', this)">
+        <span class="tab-label">Sin Asignar</span>
+        <span class="tab-badge badge-sinasignar" id="badge-SinAsignar">0</span>
+    </button>
+</div>
+
+<!-- Estadísticas rápidas -->
+<div id="statsBar" class="stats-bar" style="display: none;">
+    <div class="stat-item">
+        <span class="stat-label">Total:</span>
+        <span class="stat-value" id="stat-total">0</span>
+    </div>
+    <div class="stat-item">
+        <span class="stat-label">Mostrando:</span>
+        <span class="stat-value" id="stat-mostrando">0</span>
+    </div>
+</div>
+
+<!-- Grid de predios -->
+<div id="listaPredios" class="grid-predios">
+    <p>Cargando predios...</p>
+</div>
+
+<!-- MODAL CREAR PREDIO -->
+<div id="modalNuevoPredio" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h3>Crear Nuevo Predio</h3>
+        <form id="formNuevoPredio" onsubmit="return false;">
+            <div class="form-group">
+                <label for="nuevoid">ID del Predio</label>
+                <input type="text" id="nuevoid" name="nuevoid" placeholder="Ej: ANT-001" required autocomplete="off">
+            </div>
+            
+            <div class="form-group">
+                <label for="nuevofmi">FMI (Folio de Matrícula Inmobiliaria)</label>
+                <input type="text" id="nuevofmi" name="nuevofmi" placeholder="Ej: 123-456789" required autocomplete="off">
+            </div>
+            
+            <div id="modalError" style="color:red; margin-bottom:10px; display:none;"></div>
+            
+            <div class="btn-group">
+                <button type="button" class="btn-secondary" onclick="cerrarModalNuevoPredio()">Cancelar</button>
+                <button type="submit" class="btn-primary" id="btnConfirmarCrear">Crear Predio</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL CONFIRMAR ELIMINAR -->
+<div id="modalEliminar" class="modal" style="display:none;">
+    <div class="modal-content">
+        <h3>⚠ Eliminar Predio</h3>
+        <p>¿Está seguro de que desea eliminar el predio <strong id="eliminarNombrePredio"></strong>?</p>
+        <p style="color:#6b7280; font-size:13px; margin-top:8px;">
+            Esta acción eliminará todos los datos y documentos. No se puede deshacer.
+        </p>
+        <div class="btn-group" style="margin-top:20px;">
+            <button class="btn-secondary" onclick="cerrarModalEliminar()">Cancelar</button>
+            <button class="btn-danger" id="btnConfirmarEliminar">Eliminar</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
