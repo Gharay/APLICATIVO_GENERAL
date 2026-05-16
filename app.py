@@ -22,7 +22,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # ── Configuración PostgreSQL ──────────────────────────────────
 # Ajusta usuario y contraseña según tu instalación local
 app.config['SQLALCHEMY_DATABASE_URI'] = (
-    'postgresql://postgres:XXXX@localhost:5433/sic_catastral'
+    'postgresql://postgres:XXXXXX@localhost:5433/sic_catastral'
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAX_CONTENT_LENGTH']             = 100 * 1024 * 1024
