@@ -22,6 +22,7 @@ Este proyecto es una aplicación local de Flask diseñada para gestionar documen
 
 ## Descarga toda la carpeta desde el repositorio
 ## Guardala en el dispositivo local y en una ruta no tan larga
+## ELIMINA LA CARPETA .git desde el explorador de archivos ya que esta conecta al repositorio, se recomienda crear un propio repositorio en Git para gestionar cambios que consideren y/o adaptar el aplicativo segun sus necesidades.
 ## Abre VSCode y abre la carpeta del APLICATIVO
 
 ## Paso 1: Preparar la base de datos
@@ -89,9 +90,10 @@ http://localhost:5000
 ```
 
 
-## Consejos para compartir el proyecto
+## Consejos para uso
 
 - Por lo general se ejecuta de forma automatica el entorno virtual, en caso de que no, se debe ejecutar de forma manual, con el entorno virtual activo, ahi si se debe ejecutar el app.
+- PUEDEN AJUSTAR LA BITACORA SEGUN SUS INTERESES EDITANDO EL ARCHIVO /backend/export_word.py
 - En el terminal podras ver si hubo algun tipo de error al momento de ejecutarlo.
 - SE RECOMIENDA IR LLENANDO LA INFORMACIÓN EN LOS FORMULARIOS E IR GUARDANDO SEGUIDO.
 - En el tema de colindantes se deben crear y guardar antes de cargar documentos adjuntos.
