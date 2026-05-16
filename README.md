@@ -5,7 +5,7 @@ Este proyecto es una aplicación local de Flask diseñada para gestionar documen
 ## Requisitos previos
 
 1. Python 3.12 o superior
-2. PostgreSQL instalado
+2. PostgreSQL instalado y un gestor de DB como PgAdmin o DBeaver
 3. Un editor de texto o IDE (opcional)
 4. Acceso a PowerShell o terminal de Windows
 
@@ -17,13 +17,18 @@ Este proyecto es una aplicación local de Flask diseñada para gestionar documen
 - `database/models.py` — modelos SQLAlchemy
 - `templates/` — archivos HTML
 - `static/` — recursos CSS/JS
-- `run.bat` — script para iniciar la app en Windows
+
+# RECOMENDACIÓN: Usar el aplicativo desde VISUAL STUDIO CODE con el fin de verificar la funcionalidad.
+
+## Descarga toda la carpeta desde el repositorio
+## Guardala en el dispositivo local y en una ruta no tan larga
+## Abre VSCode y abre la carpeta del APLICATIVO
 
 ## Paso 1: Preparar la base de datos
 
 1. Instala PostgreSQL.
 2. Crea una base de datos llamada `sic_catastral`.
-3. Anota el usuario, la contraseña y el puerto usados.
+3. Anota el usuario, la contraseña y el puerto usados por tu postgres.
 
 Ejemplo con `psql`:
 
@@ -33,16 +38,15 @@ CREATE DATABASE sic_catastral;
 
 ## Paso 2: Crear y activar el entorno virtual
 
-Abre PowerShell en la carpeta del proyecto y ejecuta:
+En terminal:
 
-```powershell
 python -m venv env
 .\env\Scripts\Activate.ps1
 ```
 
 Si el comando de activación no funciona, ejecuta previamente:
 
-```powershell
+
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
 ```
 
@@ -50,64 +54,55 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
 
 Con el entorno virtual activado, instala las dependencias:
 
-```powershell
+
 pip install -r requirements.txt
 ```
 
 ## Paso 4: Configurar la conexión a PostgreSQL
 
-La aplicación usa variables de entorno para la conexión. Crea un archivo `.env` en la carpeta raíz del proyecto con estos valores:
+Ajusta en el archivo *app.py* la linea:
 
-```env
-DB_USER=postgres
-DB_PASSWORD=52360
-DB_HOST=localhost
-DB_PORT=5433
-DB_NAME=sic_catastral
-```
+app.config['SQLALCHEMY_DATABASE_URI'] = (
+    'postgresql://postgres:XXXX@localhost:5433/sic_catastral'
+)
 
-Ajusta `DB_PASSWORD` y `DB_PORT` según tu instalación local.
+Donde:
 
-> Si no se define `.env`, el proyecto usa valores predeterminados:
-> - usuario: `postgres`
-> - contraseña: `52360`
-> - host: `localhost`
-> - puerto: `5433`
-> - base de datos: `sic_catastral`
+XXXX debe ser la constraseña de tu postgres
+5433 corresponde al puesto de tu postgres, reemplazar por el correspondiente
 
-## Paso 5: Ejecutar la aplicación
+## Paso 5: Crear tablas y relaciones de la base de datos, para ello se debe ejecutar el comando en el terminal de VSCode:
+
+flask db upgrade
+
+## Paso 6: Ejecutar la aplicación
 
 Con el entorno virtual activo y la base de datos disponible, ejecuta:
 
-```powershell
+
 python app.py
 ```
-
-También puedes usar el script de Windows:
-
-```powershell
-.\run.bat
-```
-
 La aplicación abrirá el navegador en:
 
 ```
 http://localhost:5000
 ```
 
-## Nota importante
-
-- Si tu PostgreSQL está escuchando en el puerto `5432`, cambia `DB_PORT=5432` en `.env`.
-- Si tu usuario o contraseña de PostgreSQL son diferentes, actualiza `DB_USER` y `DB_PASSWORD`.
 
 ## Consejos para compartir el proyecto
 
+- Por lo general se ejecuta de forma automatica el entorno virtual, en caso de que no, se debe ejecutar de forma manual, con el entorno virtual activo, ahi si se debe ejecutar el app.
+- En el terminal podras ver si hubo algun tipo de error al momento de ejecutarlo.
+- SE RECOMIENDA IR LLENANDO LA INFORMACIÓN EN LOS FORMULARIOS E IR GUARDANDO SEGUIDO.
+- En el tema de colindantes se deben crear y guardar antes de cargar documentos adjuntos.
+- Los documentos adjuntos tanto para el predio objeto de estudio y sus colindantes se guardan en la carpeta del aplicativo /static/uploads
+- Una vez termines de utilizar el aplicativo y guardar todo, en la terminal de VSCode, usar CTRL + C para dejar de ejecutar el aplicativo.
 - No incluyas la carpeta `env/` cuando compartas el proyecto.
 - Incluye `requirements.txt`, `migrations/`, `backend/`, `database/`, `templates/` y `static/`.
 - El receptor debe crear su propio entorno virtual y su propia base de datos.
 
 ## Problemas comunes
 
-- Error de conexión a la base de datos: revisa que PostgreSQL esté ejecutándose y que los datos en `.env` sean correctos.
+- Error de conexión a la base de datos: revisa que PostgreSQL esté ejecutándose y que los datos en `.env` sean correctos. Verifica desde el administrado de tareas y/o los servicios de windows que se este ejecutando el servicio de Postgres
 - Error `ModuleNotFoundError`: asegura que el entorno virtual está activado y que instalaste `requirements.txt`.
 - Error de permisos en PowerShell: ejecuta `Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned`.
